@@ -1,0 +1,48 @@
+---
+import Avatar from './Avatar.astro';
+import { href, pick, useT, type Lang } from '../i18n';
+import { years, type Person } from '../lib/data';
+
+interface Props {
+  person: Person;
+  projectCount: number;
+  lang: Lang;
+}
+const { person, projectCount, lang } = Astro.props;
+const t = useT(lang);
+const d = person.data;
+const name = pick(d.name, lang);
+const altName = lang === 'zh' ? (d.name.zh ? d.name.en : '') : d.name.zh ?? '';
+---
+
+<a class="person" href={href(lang, `/people/${person.id}/`)}>
+  <Avatar person={person} size={48} />
+  <span class="txt">
+    <span class="nm"><b>{name}</b>{altName && <span class="alt">{altName}</span>}</span>
+    <span class="yr">{years(person)}{d.role === 'alumni' && d.now && ` · ${t('people.now')}: ${pick(d.now, lang)}`}</span>
+    <span class="int">{pick(d.interests, lang)}</span>
+    <span class="count">{t('people.projects')} · {projectCount}</span>
+  </span>
+</a>
+
+<style>
+  .person {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    text-decoration: none;
+    min-width: 0;
+    height: 100%;
+  }
+  .person:hover { border-color: var(--accent); color: inherit; }
+  .txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  b { font-size: 15.5px; }
+  .alt { font-size: 13px; color: var(--muted); margin-left: 6px; }
+  .yr { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+  .int { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .count { font-family: var(--font-mono); font-size: 11.5px; color: var(--accent); margin-top: 6px; }
+</style>

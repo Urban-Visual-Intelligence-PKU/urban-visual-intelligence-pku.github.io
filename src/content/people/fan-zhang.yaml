@@ -1,0 +1,25 @@
+name:
+  en: Fan Zhang
+  zh: 张帆
+role: pi
+since: 2023
+title:
+  en: Assistant Professor (Research Professor), PhD Supervisor
+  zh: 研究员，助理教授，博士生导师
+interests:
+  en: GeoAI, urban data science, urban visual intelligence
+  zh: 地理人工智能；城市数据科学；城市视觉智能
+bio:
+  en: >-
+    Fan Zhang is an assistant professor and research professor at the Institute of Remote Sensing and GIS,
+    Peking University. Before joining PKU in 2023 he was an assistant professor at the Hong Kong University
+    of Science and Technology and a Senior Research Fellow at MIT. He received his PhD from The Chinese
+    University of Hong Kong.
+  zh: >-
+    北京大学遥感与地理信息系统研究所研究员、助理教授、博士生导师。2023 年加入北京大学，此前任香港科技大学助理教授、
+    麻省理工学院 Senior Research Fellow，并曾在北京大学从事博士后研究。博士毕业于香港中文大学。
+avatar: ./avatars/fan-zhang.jpg
+email: fanzhanggis(at)pku.edu.cn
+links:
+  homepage: https://irsgis.pku.edu.cn/ls/gis1111/zf/index.htm
+order: 0

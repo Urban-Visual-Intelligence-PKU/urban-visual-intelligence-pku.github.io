@@ -1,0 +1,151 @@
+/* Style C "Scholar": quiet academic layout, serif headings, PKU red used sparingly.
+   All colors are tokens; components never use literal colors. Contributors must not edit this file
+   for a single project — see CONTRIBUTING.md. */
+@import '@fontsource-variable/source-serif-4';
+@import '@fontsource/public-sans/400.css';
+@import '@fontsource/public-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+
+:root {
+  --bg: #fbfbfd;
+  --surface: #ffffff;
+  --ink: #1b2a41;
+  --muted: #5d6779;
+  --line: #dfe3ea;
+  --chip: #eef1f6;
+  --accent: #94070a;
+  --accent-ink: #ffffff;
+  --fig-bg: #ffffff;
+
+  --font-display: 'Source Serif 4 Variable', 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
+  --font-body: 'Public Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --maxw: 1120px;
+  --radius: 6px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1520;
+    --surface: #151d2a;
+    --ink: #e6ebf2;
+    --muted: #9aa5b6;
+    --line: #273245;
+    --chip: #1c2636;
+    --accent: #e0575a;
+    --accent-ink: #1a0405;
+    --fig-bg: #f4f6f9;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+img { max-width: 100%; height: auto; }
+a { color: inherit; text-underline-offset: 0.2em; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+[hidden] { display: none !important; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.wrap {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover { color: var(--accent-ink); filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--accent); color: var(--accent); filter: none; }
+
+.section { padding-block: 64px 8px; scroll-margin-top: 64px; }
+.sec-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px 32px;
+  padding-bottom: 14px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.sec-head h2 { font-size: clamp(26px, 3vw, 34px); }
+.sec-head p { margin: 0; max-width: 40em; color: var(--muted); }
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1px 7px;
+  border-radius: 3px;
+  background: var(--chip);
+  color: var(--ink);
+}
+.tag.accent { background: var(--accent); color: var(--accent-ink); }
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.link-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.link-row a {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 4px 12px;
+  font-size: 13.5px;
+  text-decoration: none;
+  background: var(--surface);
+}
+.link-row a:hover { border-color: var(--accent); }

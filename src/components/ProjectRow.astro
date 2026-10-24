@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import Avatar from './Avatar.astro';
+import { href, pick, useT, type Lang } from '../i18n';
+import type { Person, Project, Theme } from '../lib/data';
+import { membersOf } from '../lib/data';
+
+interface Props {
+  project: Project;
+  people: Person[];
+  themes: Theme[];
+  lang: Lang;
+}
+const { project, people, themes, lang } = Astro.props;
+const t = useT(lang);
+const d = project.data;
+const theme = themes.find((th) => th.id === d.theme.id)!;
+const members = membersOf(project, people);
+const url = href(lang, `/projects/${project.id}/`);
+---
+
+<article class="row" data-theme={d.theme.id} data-type={d.type}>
+  <a class="fig" href={url} tabindex="-1" aria-hidden="true">
+    <Image src={d.cover} alt="" width={560} />
+  </a>
+  <div class="body">
+    <p class="meta">
+      <span class:list={['tag', { accent: d.type === 'paper' }]}>{t(`type.${d.type}`)}</span>
+      <span>{theme.data.code} · {pick(theme.data.name, lang)}</span>
+      <span>{d.year}</span>
+      {d.venue && <span>{d.venue}</span>}
+    </p>
+    <h3><a href={url}>{pick(d.title, lang)}</a></h3>
+    <p class="sum">{pick(d.summary, lang)}</p>
+    <ul class="who">
+      {
+        members.map((m) => (
+          <li>
+            <a href={href(lang, `/people/${m.id}/`)}>
+              <Avatar person={m} size={22} />
+              <span>{pick(m.data.name, lang)}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</article>
+
+<style>
+  .row {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 24px;
+    padding-block: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .fig {
+    display: block;
+    aspect-ratio: 16 / 10;
+    background: var(--fig-bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    align-self: start;
+  }
+  .fig :global(img) { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .body { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+  h3 { font-size: 20px; line-height: 1.3; }
+  h3 a { text-decoration: none; }
+  .sum {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14.5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .who { display: flex; flex-wrap: wrap; gap: 6px 14px; list-style: none; margin: 4px 0 0; padding: 0; font-size: 13px; }
+  .who a { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--muted); }
+  .who a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .row { grid-template-columns: 1fr; gap: 14px; }
+  }
+</style>

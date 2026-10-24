@@ -1,0 +1,9 @@
+name:
+  en: Ruizhe Ou
+role: phd
+interests:
+  en: Multimodal large language models for remote sensing; text-to-image and video generation
+  zh: 面向遥感的多模态大模型；文生图与视频生成
+avatar: ./avatars/ruizhe-ou.jpg
+links:
+  github: https://github.com/Norman-Ou

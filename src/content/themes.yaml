@@ -1,0 +1,38 @@
+# Research themes. Every project points to one of these ids.
+# Draft names; confirm with the PI before launch.
+- id: perception
+  code: T1
+  order: 1
+  name:
+    en: Street-level Perception
+    zh: 街景感知与城市感受
+  description:
+    en: Measuring how places look and feel from street-view imagery.
+    zh: 基于街景影像度量城市空间的物质特征与人的感受。
+- id: foundation
+  code: T2
+  order: 2
+  name:
+    en: Foundation & Generative Models
+    zh: 多模态大模型与生成式模型
+  description:
+    en: Multimodal LLMs and diffusion models that read, segment and synthesize remote sensing and urban imagery.
+    zh: 面向遥感与城市影像的理解、分割与生成的多模态大模型和扩散模型。
+- id: fusion
+  code: T3
+  order: 3
+  name:
+    en: Multi-view Representation
+    zh: 街景—遥感多视角表征
+  description:
+    en: Joint representations from satellite, aerial and street views.
+    zh: 融合卫星、航空与街景视角的城市空间表征。
+- id: sustainability
+  code: T4
+  order: 4
+  name:
+    en: Energy & Sustainability
+    zh: 城市能源与可持续
+  description:
+    en: Rooftop solar, façades and climate resilience at city scale.
+    zh: 城市尺度的屋顶光伏、建筑立面与气候韧性研究。
