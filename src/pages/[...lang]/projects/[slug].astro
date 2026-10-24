@@ -1,0 +1,129 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Avatar from '../../../components/Avatar.astro';
+import { getLang, href, pick, useT, type UIKey } from '../../../i18n';
+import { getPeople, getProjects, getThemes, membersOf } from '../../../lib/data';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return [undefined, 'en'].flatMap((lang) => projects.map((p) => ({ params: { lang, slug: p.id }, props: { id: p.id } })));
+}
+
+const lang = getLang(Astro.params.lang);
+const t = useT(lang);
+const [projects, people, themes] = await Promise.all([getProjects(), getPeople(), getThemes()]);
+const project = projects.find((p) => p.id === Astro.props.id)!;
+const d = project.data;
+const theme = themes.find((th) => th.id === d.theme.id)!;
+const members = membersOf(project, people);
+const related = projects.filter((p) => p.id !== project.id && p.data.theme.id === d.theme.id).slice(0, 4);
+const links = Object.entries(d.links).filter(([, url]) => url) as [string, string][];
+const { Content } = await render(project);
+const hasBody = Boolean(project.body?.trim());
+---
+
+<Base lang={lang} title={pick(d.title, lang)} description={pick(d.summary, lang)}>
+  <article class="wrap project">
+    <p class="back"><a href={`${href(lang, '/')}#projects`}>← {t('project.back')}</a></p>
+    <p class="meta">
+      <span class:list={['tag', { accent: d.type === 'paper' }]}>{t(`type.${d.type}`)}</span>
+      <span>{theme.data.code} · {pick(theme.data.name, lang)}</span>
+      <span>{d.year}</span>
+      {d.venue && <span>{d.venue}</span>}
+    </p>
+    <h1>{pick(d.title, lang)}</h1>
+    <p class="authors"><span class="eyebrow">{t('project.authors')}</span> {d.authors}</p>
+
+    <figure>
+      <Image src={d.cover} alt={pick(d.coverAlt, lang) || pick(d.title, lang)} width={1600} />
+      {d.coverAlt && <figcaption>{pick(d.coverAlt, lang)}</figcaption>}
+    </figure>
+
+    <div class="cols">
+      <div class="main">
+        <p class="summary">{pick(d.summary, lang)}</p>
+        {hasBody && <div class="prose"><Content /></div>}
+      </div>
+      <aside>
+        {
+          links.length > 0 && (
+            <section>
+              <h2 class="eyebrow">{t('project.links')}</h2>
+              <div class="link-row">
+                {links.map(([k, url]) => (
+                  <a href={url} target="_blank" rel="noopener">
+                    {t(`link.${k}` as UIKey)} ↗
+                  </a>
+                ))}
+              </div>
+            </section>
+          )
+        }
+        <section>
+          <h2 class="eyebrow">{t('project.members')}</h2>
+          <ul class="mem">
+            {
+              members.map((m) => (
+                <li>
+                  <a href={href(lang, `/people/${m.id}/`)}>
+                    <Avatar person={m} size={36} />
+                    <span>
+                      <b>{pick(m.data.name, lang)}</b>
+                      <small>{t(`member.${m.data.role}`)}</small>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+      </aside>
+    </div>
+
+    {
+      related.length > 0 && (
+        <section class="related">
+          <h2 class="eyebrow">{t('project.related')}</h2>
+          <ul>
+            {related.map((r) => (
+              <li>
+                <a href={href(lang, `/projects/${r.id}/`)}>{pick(r.data.title, lang)}</a>
+                <span class="meta">{r.data.year}{r.data.venue && ` · ${r.data.venue}`}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </article>
+</Base>
+
+<style>
+  .project { padding-block: 40px 0; }
+  .back { margin: 0 0 24px; font-size: 14px; }
+  .back a { text-decoration: none; color: var(--muted); }
+  h1 { font-size: clamp(28px, 3.6vw, 42px); line-height: 1.15; margin-top: 12px; max-width: 30em; }
+  .authors { margin: 14px 0 0; color: var(--muted); font-size: 14.5px; }
+  .authors .eyebrow { display: inline; margin-right: 8px; }
+  figure { margin: 28px 0 0; }
+  figure :global(img) { width: 100%; display: block; background: var(--fig-bg); border: 1px solid var(--line); border-radius: var(--radius); }
+  figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .cols { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; margin-top: 32px; }
+  @media (max-width: 820px) { .cols { grid-template-columns: 1fr; gap: 28px; } }
+  .summary { font-size: 17px; margin: 0; max-width: 68ch; }
+  .prose { margin-top: 20px; max-width: 68ch; }
+  aside { display: flex; flex-direction: column; gap: 24px; }
+  aside h2 { margin-bottom: 10px; font-weight: 400; }
+  .mem { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .mem a { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; }
+  .mem a:hover { border-color: var(--accent); color: inherit; }
+  .mem b { display: block; font-size: 14.5px; }
+  .mem small { color: var(--muted); font-size: 12.5px; }
+  .related { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .related h2 { margin-bottom: 8px; font-weight: 400; }
+  .related ul { list-style: none; margin: 0; padding: 0; }
+  .related li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .related a { font-family: var(--font-display); font-size: 17px; text-decoration: none; }
+</style>

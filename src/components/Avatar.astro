@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import type { Person } from '../lib/data';
+
+interface Props {
+  person: Person;
+  size?: number;
+}
+const { person, size = 40 } = Astro.props;
+const { avatar, name } = person.data;
+const initials = name.en
+  .split(/\s+/)
+  .map((w) => w[0])
+  .join('')
+  .slice(0, 2)
+  .toUpperCase();
+// Stable hue per person so initials avatars are distinguishable.
+const hue = [...person.id].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 360, 7);
+---
+
+{
+  avatar ? (
+    <Image class="av" src={avatar} alt="" width={size * 2} height={size * 2} style={`width:${size}px;height:${size}px`} />
+  ) : (
+    <span class="av initials" style={`width:${size}px;height:${size}px;font-size:${Math.round(size * 0.36)}px;--h:${hue}`} aria-hidden="true">
+      {initials}
+    </span>
+  )
+}
+
+<style>
+  .av { border-radius: 50%; object-fit: cover; object-position: 50% 20%; flex: none; display: block; background: var(--chip); }
+  .initials {
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    color: #ffffff;
+    background: hsl(var(--h) 38% 42%);
+  }
+</style>

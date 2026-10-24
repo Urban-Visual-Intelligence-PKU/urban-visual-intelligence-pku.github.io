@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base lang="zh" title="404">
+  <div class="wrap nf">
+    <p class="eyebrow">404</p>
+    <h1>页面不存在 · Page not found</h1>
+    <p>这个地址没有对应的页面。There is no page at this address.</p>
+    <p><a class="btn" href="/">回到首页</a> <a class="btn ghost" href="/en/">Homepage</a></p>
+  </div>
+</Base>
+
+<style>
+  .nf { padding-block: 96px; }
+  h1 { font-size: clamp(28px, 4vw, 44px); margin: 12px 0 16px; }
+  p { color: var(--muted); }
+</style>

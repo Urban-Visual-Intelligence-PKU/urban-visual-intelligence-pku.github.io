@@ -1,0 +1,78 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Avatar from '../../../components/Avatar.astro';
+import ProjectRow from '../../../components/ProjectRow.astro';
+import { getLang, href, pick, useT, type UIKey } from '../../../i18n';
+import { getPeople, getProjects, getThemes, projectsOf, years } from '../../../lib/data';
+
+export async function getStaticPaths() {
+  const people = await getPeople();
+  return [undefined, 'en'].flatMap((lang) => people.map((p) => ({ params: { lang, id: p.id }, props: { id: p.id } })));
+}
+
+const lang = getLang(Astro.params.lang);
+const t = useT(lang);
+const [projects, people, themes] = await Promise.all([getProjects(), getPeople(), getThemes()]);
+const person = people.find((p) => p.id === Astro.props.id)!;
+const d = person.data;
+const mine = projectsOf(person.id, projects);
+const links = Object.entries(d.links).filter(([, url]) => url) as [string, string][];
+const altName = lang === 'zh' ? (d.name.zh ? d.name.en : '') : d.name.zh ?? '';
+---
+
+<Base lang={lang} title={pick(d.name, lang)} description={pick(d.interests, lang)}>
+  <div class="wrap">
+    <p class="back"><a href={`${href(lang, '/')}#people`}>← {t('nav.people')}</a></p>
+    <header class="head">
+      <Avatar person={person} size={120} />
+      <div class="txt">
+        <p class="eyebrow">{t(`member.${d.role}`)}{years(person) && ` · ${years(person)}`}</p>
+        <h1>{pick(d.name, lang)}{altName && <small>{altName}</small>}</h1>
+        {d.title && <p class="title">{pick(d.title, lang)}</p>}
+        <p class="int">{pick(d.interests, lang)}</p>
+        {d.role === 'alumni' && d.now && <p class="int">{t('people.now')}: {pick(d.now, lang)}</p>}
+        {d.bio && <p class="bio">{pick(d.bio, lang)}</p>}
+        <div class="link-row">
+          {d.email && <span class="mail">{d.email}</span>}
+          {links.map(([k, url]) => (
+            <a href={url} target="_blank" rel="noopener">
+              {t(`link.${k}` as UIKey)} ↗
+            </a>
+          ))}
+        </div>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="sec-head"><h2>{t('people.projects')}</h2></div>
+      {
+        mine.length ? (
+          <div class="list">
+            {mine.map((p) => (
+              <ProjectRow project={p} people={people} themes={themes} lang={lang} />
+            ))}
+          </div>
+        ) : (
+          <p class="none">{t('people.noProjects')}</p>
+        )
+      }
+    </section>
+  </div>
+</Base>
+
+<style>
+  .back { margin: 40px 0 24px; font-size: 14px; }
+  .back a { text-decoration: none; color: var(--muted); }
+  .head { display: flex; gap: 32px; align-items: flex-start; }
+  .txt { min-width: 0; }
+  h1 { font-size: clamp(30px, 4vw, 44px); margin-top: 8px; }
+  h1 small { font-family: var(--font-body); font-weight: 400; font-size: 18px; color: var(--muted); margin-left: 12px; }
+  .title { color: var(--accent); font-weight: 600; margin: 8px 0 0; }
+  .int { color: var(--muted); margin: 8px 0 0; }
+  .bio { margin: 14px 0 0; max-width: 68ch; }
+  .link-row { margin-top: 16px; align-items: center; }
+  .mail { font-family: var(--font-mono); font-size: 13.5px; user-select: all; margin-right: 8px; }
+  .list { border-top: 1px solid var(--line); margin-top: -24px; }
+  .none { color: var(--muted); }
+  @media (max-width: 600px) { .head { flex-direction: column; gap: 16px; } }
+</style>
