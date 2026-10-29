@@ -31,7 +31,9 @@ Check whether the user already has a person file: `ls src/content/people/`. Ever
 
 ### Person
 
-Ask for: English name, Chinese name (optional), role (`pi | postdoc | phd | master | undergrad | alumni`), start year, research interests in English and Chinese, avatar image path, and optional links (GitHub, homepage, Google Scholar, ORCID) and email.
+Ask for: English name, Chinese name (optional), role (`pi | postdoc | phd | master | undergrad | alumni`), start year, research interests in English and Chinese, avatar image path, and optional links (GitHub, homepage, Hugging Face, Google Scholar, ORCID) and email.
+
+On the fixed-size member card, research interests and links share two lines and project chips take two rows; anything past that is cut off (links first). Keep interests to keywords; if the user gives a long sentence, propose a keyword version and put the full sentence in `bio`. See "成员卡片规范" in CONTRIBUTING.md.
 
 Id = lowercase `given-family`, e.g. `ruizhe-ou`. Confirm it with the user: it appears in URLs and cannot change later.
 
@@ -43,6 +45,7 @@ Then collect:
 
 - `theme`: show the options from `src/content/themes.yaml` (id + Chinese name) and let the user pick one.
 - `type`: paper, dataset, code or demo.
+- `short`: a short name for the member-card chip, at most 24 characters, usually the method name (`GeoPix`). Suggest one and confirm; omit it if the user has none.
 - `members`: lab members among the authors, as person ids. Every id must exist in `src/content/people/`. If a co-author from the lab has no person file yet, list them in `authors` only and tell the user that person can add themselves later.
 - `summary` in English and Chinese: 2–3 sentences, plain language, not the full abstract. Offer to draft both from the abstract, then let the user edit.
 - Cover image: the paper's teaser or framework figure, landscape, ideally about 16:10.

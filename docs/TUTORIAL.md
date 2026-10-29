@@ -40,20 +40,23 @@ claude
     ```yaml
     name:
       en: Ruizhe Ou
-      zh: 中文名
+      zh: 区睿哲
     role: phd               # pi | postdoc | phd | master | undergrad | alumni
     since: 2024             # 入组年份
     interests:
-      en: Multimodal large language models for remote sensing
+      en: Multimodal LLMs for remote sensing
       zh: 面向遥感的多模态大模型
     avatar: ./avatars/ruizhe-ou.jpg   # 没有头像就删掉这一行
     links:
       github: https://github.com/Norman-Ou
+      # homepage / huggingface / scholar / orcid 也可以填，会显示在成员卡片上
     ```
 
 4. 点 **Commit changes…**，选择 **Create a new branch**（分支名例如 `add/ruizhe-ou`），然后点 **Propose changes**。
 5. 上传头像：切换到刚建的分支，进入 `src/content/people/avatars/`，点 **Add file → Upload files**，上传 `ruizhe-ou.jpg`，提交到同一个分支。头像要求：接近正方形，至少 400×400 像素，小于 2 MB，文件名与 `avatar` 一致。
 6. 点 **Create pull request**，标题写「添加成员：Ruizhe Ou」。
+
+成员卡片上，研究领域和外链合起来最多两行，成果标签最多两行，超出的部分会被截掉。卡片每一部分对应哪个字段、好坏例子，见 [CONTRIBUTING.md 的「成员卡片规范」](../CONTRIBUTING.md#成员卡片规范)。
 
 ### B2. 添加项目
 
@@ -65,6 +68,7 @@ claude
     ---
     title:
       en: "GeoPix: A Multimodal Large Language Model for Pixel-level Image Understanding in Remote Sensing"
+    short: GeoPix            # 简称，显示在成员卡片上，最多 24 个字符
     theme: foundation        # perception | foundation | fusion | sustainability
     type: paper              # paper | dataset | code | demo
     year: 2025

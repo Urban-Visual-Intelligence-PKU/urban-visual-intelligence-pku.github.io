@@ -1,6 +1,7 @@
 ---
 title:
   en: "GeoPix: A Multimodal Large Language Model for Pixel-level Image Understanding in Remote Sensing"
+short: GeoPix
 theme: foundation
 type: paper
 year: 2025
