@@ -4,7 +4,7 @@ Source for the lab website: https://urban-visual-intelligence-pku.github.io/
 
 Built with [Astro](https://astro.build/) as a static, bilingual site (Chinese at `/`, English at `/en/`) and deployed to GitHub Pages by GitHub Actions on every push to `main`.
 
-**Lab members adding papers, datasets or their own profile: read [CONTRIBUTING.md](CONTRIBUTING.md).** If you use Claude Code, ask it to "把我的论文加到实验室主页" and the `add-lab-content` skill will guide you.
+**Lab members adding papers, datasets or their own profile: follow the step-by-step [docs/TUTORIAL.md](docs/TUTORIAL.md) (Chinese); field rules are in [CONTRIBUTING.md](CONTRIBUTING.md).** If you use Claude Code, ask it to "把我的论文加到实验室主页" and the `add-lab-content` skill will guide you.
 
 ## Development
 
