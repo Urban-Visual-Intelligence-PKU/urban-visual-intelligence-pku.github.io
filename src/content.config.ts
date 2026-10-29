@@ -37,6 +37,7 @@ const people = defineCollection({
         .object({
           homepage: z.url(),
           github: z.url(),
+          huggingface: z.url(),
           scholar: z.url(),
           orcid: z.url(),
         })
@@ -55,6 +56,8 @@ const projects = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: localized,
+      // Short name for member-card chips, e.g. the method name "GeoPix". Falls back to the title.
+      short: z.string().max(24).optional(),
       theme: reference('themes'),
       type: z.enum(['paper', 'dataset', 'code', 'demo']),
       year: z.number().int().min(2000).max(2100),

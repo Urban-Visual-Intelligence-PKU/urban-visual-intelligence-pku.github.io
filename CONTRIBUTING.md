@@ -36,12 +36,12 @@ src/content/
 # src/content/people/ruizhe-ou.yaml
 name:
   en: Ruizhe Ou
-  zh: 中文名            # 选填
+  zh: 区睿哲            # 选填
 role: phd               # pi | postdoc | phd | master | undergrad | alumni
 since: 2024             # 入学或入组年份，选填
 # until: 2028           # 毕业年份，毕业后再填，同时把 role 改成 alumni
-interests:
-  en: Multimodal large language models for remote sensing
+interests:               # 显示在成员卡片上，长度要求见下方「成员卡片规范」
+  en: Multimodal LLMs for remote sensing
   zh: 面向遥感的多模态大模型
 # bio:                  # 一两句个人介绍，选填，同样是 en/zh
 # now:                  # 已毕业成员的去向，选填，同样是 en/zh
@@ -50,11 +50,47 @@ avatar: ./avatars/ruizhe-ou.jpg   # 选填；不填会显示姓名首字母
 links:                  # 都是选填
   github: https://github.com/Norman-Ou
   # homepage: https://...
+  # huggingface: https://huggingface.co/...
   # scholar: https://scholar.google.com/citations?user=...
   # orcid: https://orcid.org/...
 ```
 
 头像要求：正方形或接近正方形，至少 400×400 像素，小于 2 MB，放在 `src/content/people/avatars/`。
+
+### 成员卡片规范
+
+首页「团队成员」里每个人一张卡片，所有卡片**尺寸固定、完全一样大**，放不下的内容会被省略号截掉。卡片的每一部分来自这些字段：
+
+```
+┌──────────────────────────────────────────┐
+│ ┌──────┐                                 │
+│ │ 头像 │  区睿哲  Ruizhe Ou               │  ← avatar；name（当前语言在前，另一种语言在后）
+│ └──────┘  2024–                          │  ← since / until（没填就不显示）
+│ 面向遥感的多模态大模型；文生图与视频生成 · │  ← interests，后面接 links
+│ GitHub ↗                                 │     两者合起来最多 2 行
+│ [SkyVLaM] [GeoPix] [DisasterDiffusion]   │  ← 你参与的项目，显示项目的 short
+└──────────────────────────────────────────┘     最多 2 行
+```
+
+| 部分 | 来自 | 规则 |
+| --- | --- | --- |
+| 头像 | 成员文件的 `avatar` | 显示为圆角方形，裁成正方形，人脸放在画面中上部 |
+| 姓名 | `name.en` / `name.zh` | 中文页先中文后英文，英文页反过来；只有一行 |
+| 年份 | `since` / `until` | 显示为 `2024–` 或 `2020–2024`；已毕业成员还会显示 `now` |
+| 研究领域 + 外链 | `interests` + `links` | **合起来最多 2 行**，超出部分被截掉，排在最后的外链最先被挤掉 |
+| 成果标签 | 项目文件的 `members` 里有你，标签文字是项目的 `short` | **最多 2 行**，按发表时间从新到旧，多出的只在个人页显示 |
+
+**研究领域和外链合起来最多 2 行，成果标签最多 2 行**，超出的部分会被截掉。研究领域写关键词即可，完整介绍写在 `bio` 里（显示在个人页）。
+
+| | 例子 | 结果 |
+| --- | --- | --- |
+| ✅ | `zh: 面向遥感的多模态大模型；文生图与视频生成` | 加上「GitHub ↗」正好两行 |
+| ✅ | `en: MLLM RS, t2i and t2v generation` | 一行放下，外链完整显示 |
+| ❌ | `en: Multimodal large language models for remote sensing; text-to-image and video generation` | 独占两行，GitHub 链接被截掉 |
+
+**成果标签用项目的 `short`。**每个项目都应该填 `short`，一般用方法名或数据集名，例如 `GeoPix`、`SkyVLaM`、`DisasterDiffusion`。不填的话标签会显示被截断的完整标题，比如「A Method of Efficient Synth…」，很难认出是哪篇。
+
+写完后用 `npm run dev` 打开首页看一下自己的卡片，确认外链没有被截掉。
 
 ## 添加一个项目
 
@@ -66,6 +102,7 @@ links:                  # 都是选填
 title:
   en: "GeoPix: A Multimodal Large Language Model for Pixel-level Image Understanding in Remote Sensing"
   # zh: 中文标题，选填。论文一般只写英文标题
+short: GeoPix            # 简称，显示在成员卡片的成果标签上；选填，最多 24 个字符，不填则显示截断的标题
 theme: foundation        # 必须是 themes.yaml 里的某个 id：perception | foundation | fusion | sustainability
 type: paper              # paper | dataset | code | demo
 year: 2025

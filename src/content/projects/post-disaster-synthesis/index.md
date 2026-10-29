@@ -1,6 +1,7 @@
 ---
 title:
   en: A Method of Efficient Synthesizing Post-disaster Remote Sensing Image with Diffusion Model and LLM
+short: DisasterDiffusion
 theme: foundation
 type: paper
 year: 2023

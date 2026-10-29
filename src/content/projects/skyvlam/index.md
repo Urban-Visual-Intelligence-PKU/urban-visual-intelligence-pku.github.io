@@ -1,6 +1,7 @@
 ---
 title:
   en: "SkyVLaM: Multimodal Large Language Model for UAV Video Understanding in Remote Sensing"
+short: SkyVLaM
 theme: foundation
 type: paper
 year: 2026
