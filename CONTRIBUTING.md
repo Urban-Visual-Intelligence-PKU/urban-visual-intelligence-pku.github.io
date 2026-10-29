@@ -2,6 +2,8 @@
 
 这份文档写给实验室的每一位成员。你只需要新增或修改**自己的**几个文件，然后提交 Pull Request（PR）。PR 通过自动检查、经管理员合并后，网站会自动更新。
 
+> 第一次操作可以先看 [docs/TUTORIAL.md](docs/TUTORIAL.md) 的分步教程（含 GitHub 网页操作）。
+>
 > 用 Claude Code 的同学可以直接说「帮我把这篇论文加到实验室主页」，项目自带的 `add-lab-content` skill 会按本文档一步步带你完成。
 
 ## 网站是怎么组织的
