@@ -1,0 +1,12 @@
+name:
+  en: Li Jiapeng
+  zh: 李嘉鹏
+role: phd
+since: 2025
+interests:
+  en: Multimodal LLMs; agent system optimization
+  zh: 多模态大模型；智能体系统优化
+email: jpli25(at)stu.pku.edu.cn
+avatar: ./avatars/jiapeng-li.jpg
+links:
+  github: https://github.com/GoodGap
