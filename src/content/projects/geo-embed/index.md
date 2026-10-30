@@ -16,7 +16,7 @@ summary:
   zh: >-
     Geo-Embed 将街景与遥感影像、文本、区域及掩码映射到共享嵌入空间，实现任务指令引导的查询—目标匹配。
     配套的 GeoMEB 基准采用统一评测协议，整合检索、视觉问答、变化检测、分类与视觉定位五类共 45 项城市理解任务。
-cover: ./cover.svg
+cover: ./cover.png
 coverAlt:
   en: "Figure 1 from the Geo-Embed paper: GeoMEB and Geo-Embed unify five task families through a shared multimodal embedding space."
   zh: "Geo-Embed 论文图 1：GeoMEB 与 Geo-Embed 通过共享多模态嵌入空间统一五类任务。"
