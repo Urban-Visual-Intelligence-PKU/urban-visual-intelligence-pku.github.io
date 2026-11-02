@@ -23,11 +23,12 @@ const people = defineCollection({
   schema: ({ image }) =>
     z.object({
       name: localized,
-      role: z.enum(['pi', 'postdoc', 'phd', 'master', 'undergrad', 'alumni']),
+      role: z.enum(['pi', 'postdoc', 'phd', 'master', 'undergrad', 'assistant', 'alumni']),
       since: z.number().int().min(2000).max(2100).optional(),
       until: z.number().int().min(2000).max(2100).optional(),
       title: localized.optional(),
-      interests: localized,
+      enrollmentYear: z.number().int().min(2000).max(2100).optional(),
+      interests: localized.optional(),
       bio: localized.optional(),
       // For alumni: where they are now.
       now: localized.optional(),

@@ -1,10 +1,11 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { useT, type Lang } from '../i18n';
 
 export type Project = CollectionEntry<'projects'>;
 export type Person = CollectionEntry<'people'>;
 export type Theme = CollectionEntry<'themes'>;
 
-export const roleOrder = ['pi', 'postdoc', 'phd', 'master', 'undergrad', 'alumni'] as const;
+export const roleOrder = ['pi', 'postdoc', 'phd', 'master', 'undergrad', 'assistant', 'alumni'] as const;
 
 export async function getProjects(): Promise<Project[]> {
   const all = await getCollection('projects');
@@ -32,7 +33,7 @@ export async function getPeople(): Promise<Person[]> {
     (a, b) =>
       roleOrder.indexOf(a.data.role) - roleOrder.indexOf(b.data.role) ||
       a.data.order - b.data.order ||
-      (a.data.since ?? 0) - (b.data.since ?? 0) ||
+      (a.data.enrollmentYear ?? a.data.since ?? 0) - (b.data.enrollmentYear ?? b.data.since ?? 0) ||
       a.data.name.en.localeCompare(b.data.name.en),
   );
 }
@@ -47,8 +48,7 @@ export function membersOf(project: Project, people: Person[]): Person[] {
     .filter((p): p is Person => Boolean(p));
 }
 
-export function years(p: Person): string {
-  const { since, until } = p.data;
-  if (!since) return '';
-  return until ? `${since}–${until}` : `${since}–`;
+export function years(p: Person, lang: Lang): string {
+  const year = p.data.enrollmentYear;
+  return year ? `${useT(lang)('people.enrollmentYear')}: ${year}` : '';
 }

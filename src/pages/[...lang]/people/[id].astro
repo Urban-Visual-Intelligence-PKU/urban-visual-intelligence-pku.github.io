@@ -26,7 +26,7 @@ const altName = lang === 'zh' ? (d.name.zh ? d.name.en : '') : d.name.zh ?? '';
     <header class="head">
       <Avatar person={person} size={120} />
       <div class="txt">
-        <p class="eyebrow">{t(`member.${d.role}`)}{years(person) && ` · ${years(person)}`}</p>
+        <p class="eyebrow">{t(`member.${d.role}`)}{years(person, lang) && ` · ${years(person, lang)}`}</p>
         <h1>{pick(d.name, lang)}{altName && <small>{altName}</small>}</h1>
         {d.title && <p class="title">{pick(d.title, lang)}</p>}
         <p class="int">{pick(d.interests, lang)}</p>

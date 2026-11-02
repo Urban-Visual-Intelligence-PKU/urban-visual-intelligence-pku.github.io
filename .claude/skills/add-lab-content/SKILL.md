@@ -100,3 +100,8 @@ Only after the user confirms the content:
 4. Push and open a PR with `gh pr create`. In the description list what was added and the pages to look at. Do not merge it yourself.
 
 Tell the user the PR link and that the site updates automatically a few minutes after an admin merges it.
+
+
+## Basic member roster and entry year
+
+`interests` is optional for basic member records. Use `enrollmentYear` for the displayed entry year (入学年份); omit unknown years. Entry years display as a labeled year, without a date range. `since` / `until` remain legacy metadata. The `assistant` role is for research assistants. Use localized `title` for specific distinctions such as Boya Postdoctoral Fellow or PhD alumni. Existing profiles and links should be preserved when updating the roster.

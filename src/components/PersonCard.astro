@@ -22,7 +22,7 @@ const links = Object.entries(d.links).filter(([, url]) => url) as [string, strin
     <a class="av" href={page} tabindex="-1" aria-hidden="true"><Avatar person={person} size={56} square /></a>
     <div class="who">
       <a class="nm" href={page}><b>{name}</b>{altName && <span class="alt">{altName}</span>}</a>
-      <span class="yr">{years(person)}{d.role === 'alumni' && d.now && ` · ${t('people.now')}: ${pick(d.now, lang)}`}</span>
+      <span class="yr">{pick(d.title, lang) || t(`member.${d.role}`)}{years(person, lang) && ` · ${years(person, lang)}`}{d.role === 'alumni' && d.now && ` · ${t('people.now')}: ${pick(d.now, lang)}`}</span>
     </div>
   </div>
   <p class="int">
