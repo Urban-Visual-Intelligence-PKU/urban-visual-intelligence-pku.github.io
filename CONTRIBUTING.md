@@ -187,3 +187,8 @@ npm run build      # 完整构建一次，确认没有报错
 - 单个项目的代码和数据合计控制在 5 MB 以内，更大的数据（瓦片、GeoJSON、视频）放到外部存储并按需加载。
 
 正式规范定稿后会更新本节。
+
+
+## Basic member roster and entry year
+
+`interests` is optional for basic member records. Use `enrollmentYear` for the displayed entry year (入学年份); omit unknown years. Entry years display as a labeled year, without a date range. `since` / `until` remain legacy metadata. The `assistant` role is for research assistants. Use localized `title` for specific distinctions such as Boya Postdoctoral Fellow or PhD alumni. Existing profiles and links should be preserved when updating the roster.
